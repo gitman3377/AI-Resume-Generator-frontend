@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'
+import { AuthService } from './auth.service';
 
 const routes: any = [
   {
@@ -28,6 +29,9 @@ const routes: any = [
     CommonModule,
     RouterModule.forChild(routes),
     FormsModule
+  ],
+  providers:[
+    AuthService
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
