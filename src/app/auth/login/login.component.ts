@@ -12,7 +12,8 @@ export class LoginComponent implements OnInit{
   name: string = '';
   email: string = '';
   password: string = '';
-  userid:number = 0;
+  userid:number = 0; 
+  validator:number = 1;
   constructor(
     private authservice:AuthService,
     private toastr:ToastrService
@@ -26,6 +27,22 @@ export class LoginComponent implements OnInit{
     this.isLogin = state;
   }
 
+  validators(){
+    console.log('validating')
+    if(this.name == "" || this.name == undefined){
+      this.toastr.error('Username is Required!', 'Error')
+      this.validator = 0;
+    }
+    if(this.email == "" || this.email == undefined){
+      this.toastr.error('Email is Required!', 'Error')
+      this.validator = 0;
+    }
+    if(this.password == "" || this.password == undefined){
+      this.toastr.error('Password is Required!', 'Error')
+      this.validator = 0;
+    }
+  }
+
   onLogin() {
     console.log('Logging in...');
     const params: any = {
@@ -34,6 +51,7 @@ export class LoginComponent implements OnInit{
   }
 
   onSignup() {
+    console.log('validator',this.validator);
     const params: any = {
       name: this.name,
       email: this.email,
@@ -41,6 +59,8 @@ export class LoginComponent implements OnInit{
       process_by: 'add',
       userid: this.userid
     }
+    this.validators();
+    if(this.validator == 1){
     this.authservice.initiateLogin(params).subscribe((res:any) => {
       if(res[0].resultvalue == 1) {
         this.toastr.success('User added successfully!', 'Success')
@@ -50,5 +70,6 @@ export class LoginComponent implements OnInit{
         this.toastr.info('Username/Password already taken!', 'Info')
       }
     })
+    }
   }
 }
