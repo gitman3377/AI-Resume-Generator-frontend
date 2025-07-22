@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       positionClass: 'toast-top-right',
       timeOut: 5000,                // Toast disappears after 5 sec
       easing: 'ease-in', 
-      preventDuplicates: true,               // Animation speed (default 300ms)
+      preventDuplicates: true,               
       closeButton: true
     })
   ],

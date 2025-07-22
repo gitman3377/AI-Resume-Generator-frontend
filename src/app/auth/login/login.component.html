@@ -18,7 +18,7 @@
 
     <div *ngIf="!isLogin" class="form">
       <h2>Create Account</h2>
-      <input type="text" name="fullname" [(ngModel)]="name" placeholder="Full Name" required />
+      <input type="text" name="fullname" [(ngModel)]="name" placeholder="UserName" required />
       <input type="email" name="email" [(ngModel)]="email" placeholder="Email" required />
       <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required />
       <button type="submit" (click)="onSignup()">Sign Up</button>

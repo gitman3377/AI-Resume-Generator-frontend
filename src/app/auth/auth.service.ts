@@ -14,4 +14,9 @@ export class AuthService {
   initiateLogin(params:any): Observable<any> {
     return this.http.post<any>(this.URL+'/AIGenerator/ManageUsers',params);
   }
+
+  validateLogin(params:any): Observable<any> {
+    console.log('service',params)
+    return this.http.get<any>(this.URL + '/AIGenerator/AuthoriseUser',{params:params})
+  }
 }
