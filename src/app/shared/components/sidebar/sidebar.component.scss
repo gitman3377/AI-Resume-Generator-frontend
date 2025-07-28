@@ -1,6 +1,117 @@
-.overall-sidebar{
-    img{
+.overall-sidebar {
+    height: 100%;
+
+    img {
         width: 125px;
         height: 125px;
+    }
+
+    .side-menu {
+        margin-top: 50%;
+
+        .menu {
+            font-size: 20px;
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-weight: 500;
+            margin-bottom: 20%;
+
+            .icon {
+                width: 20%;
+                display: inline-block;
+                text-align: center;
+            }
+
+            span {
+                padding-left: 3%;
+                color: #404047;
+            }
+
+        }
+
+    }
+
+    .bottom {
+        margin-top: 100%;
+        border-top: 2px solid #c4c4c4;
+
+        .logoutmenu {
+            text-align: end;
+
+            cursor: pointer;
+            font-size: 22px;
+            display: block;
+            text-decoration: none;
+            color: 40404;
+            font-weight: 500;
+            padding-top: 20%;
+
+            // border-top: 3px solid #dbd7d7;
+            padding-top: 5%;
+            // background-color: crimson;
+            justify-content: end;
+
+            .icon {
+                width: 15%;
+                display: inline-block;
+                text-align: center;
+            }
+
+            span {
+                padding-left: 3%;
+                color: #404047;
+
+            }
+        }
+
+        p {
+            font-size: 10px;
+            color: #404047;
+        }
+    }
+}
+
+.act-route {
+    color: #1d459c !important;
+    background-color: white;
+    padding: 7px 0px;
+    border-radius: 8px;
+
+}
+
+.fa-solid fa-circle-user fa-2xl {
+    width: 100%;
+}
+
+.not-active {
+    color: #404047 !important;
+}
+
+@media(min-width: 768px) {
+    img {
+        width: 90px !important;
+        height: 90px !important;
+    }
+
+    .menu,
+    .logoutmenu {
+        font-size: 11px !important;
+    }
+
+    .bottom {
+        margin-top: 280% !important;
+    }
+}
+
+@media(min-width: 1024px) {
+
+    .menu,
+    .logoutmenu {
+        font-size: 15px !important;
+    }
+
+    .bottom {
+        margin-top: 150% !important;
     }
 }

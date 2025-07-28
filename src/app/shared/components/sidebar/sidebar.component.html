@@ -2,4 +2,26 @@
     <div class="logo">
         <img src="assets/images/logo.png">
     </div>
+
+    <div class="side-menu">
+        <a class="menu" *ngFor="let menu of mainmenu" [routerLink]="menu.path"
+            [ngClass]="activeMenu == menu.path ? 'act-route' : 'not-active'">
+
+            <div class="icon">
+                <i class="{{menu.icon}}" style="color: #404047;"
+                    [ngClass]="activeMenu == menu.path ? 'act-route' : 'not-active'"></i>
+            </div>
+            <span [ngClass]="activeMenu == menu.path ? 'act-route' : 'not-active'">{{menu.title}}</span>
+        </a>
+    </div>
+
+      <div class="bottom">
+        <a class="logoutmenu" > <!-- (click)="logout()"-->
+            <span>Logout</span>
+            <div class="icon">
+                <i class="fa-solid fa-right-from-bracket" style="color: #404047;" ></i>
+            </div>
+        </a>
+        <p>Powered by M.A.M</p>
+    </div>
 </div>
