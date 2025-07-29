@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { mainmenu } from './sidebar_menu';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LogoutComponent } from '../../popup/logout/logout.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +17,8 @@ export class SidebarComponent implements OnInit{
   activeMenu:any;
 
 constructor(
-  public router: Router
+  public router: Router,
+  private modalService: NgbModal
 )
 {}
 
@@ -24,7 +27,12 @@ ngOnInit() {
 }
 
 logout(){
-  
+  const modalRef = this.modalService.open(LogoutComponent,{windowClass: "my_class", backdrop: 'static'})
+      modalRef.result.then(result => {
+      if (result) {
+        //---//
+      }
+    })
 }
 
 ngDoCheck(){

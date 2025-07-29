@@ -9,6 +9,9 @@
   justify-content: center;
   align-items: center;
   z-index: 999;
+
+  // Fade-in animation for backdrop
+  animation: fadeInBackdrop 0.3s ease-out;
 }
 
 .logout-popup {
@@ -18,6 +21,11 @@
   width: 300px;
   text-align: center;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+
+  // Smooth scale-in
+  transform: scale(0.9);
+  opacity: 0;
+  animation: popupEnter 0.3s ease-out forwards;
 
   h3 {
     margin: 0;
@@ -43,7 +51,7 @@
       border-radius: 6px;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: background 0.3s ease;
+      transition: background 0.2s ease;
       margin: 0 0.25rem;
     }
 
@@ -57,12 +65,33 @@
     }
 
     .logout-btn {
-      background-color: #d9534f;
+      background-color: #b1f860;
       color: #fff;
 
       &:hover {
         background-color: #c9302c;
       }
     }
+  }
+}
+
+/* Animations */
+@keyframes fadeInBackdrop {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.35);
+  }
+}
+
+@keyframes popupEnter {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
 }

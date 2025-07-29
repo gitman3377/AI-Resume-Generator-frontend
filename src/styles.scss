@@ -3,3 +3,9 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.my-class .modal-dialog {
+    width: 40% !important;
+    display: flex;
+    justify-content: center;
+}
+
