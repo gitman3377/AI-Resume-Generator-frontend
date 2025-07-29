@@ -4,7 +4,7 @@ import { title } from "node:process";
 export const mainmenu = 
 [
     {
-    path: "home",
+    path: "dashboard",
     title: "Home",
     extralink: true,
     class: "",

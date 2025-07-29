@@ -1,0 +1,10 @@
+<div class="logout-popup-backdrop" *ngIf="showLogoutPopup">
+  <div class="logout-popup">
+    <h3>Logout</h3>
+    <p>Are you sure you want to log out?</p>
+    <div class="popup-actions">
+      <button class="cancel-btn" (click)="closePopup()">Cancel</button>
+      <button class="logout-btn" (click)="logout()">Logout</button>
+    </div>
+  </div>
+</div>

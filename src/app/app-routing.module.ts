@@ -14,6 +14,16 @@ const routes: Routes = [
         loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
+        path: 'build',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/build/build.module').then(m => m.BuildModule)
+      },
+      {
+        path: 'myresume',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./pages/myresume/myresume.module').then(m => m.MyresumeModule)
+      },
+      {
         path: '',
         redirectTo: 'dashboard',
         pathMatch: 'full'

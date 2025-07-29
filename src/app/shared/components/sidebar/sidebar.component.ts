@@ -23,6 +23,10 @@ ngOnInit() {
   
 }
 
+logout(){
+  
+}
+
 ngDoCheck(){
   this.activeMenu = this.removespecialcharacters(this.router.url);
   this.href = this.router.url;

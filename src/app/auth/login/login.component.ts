@@ -50,8 +50,9 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('currentUser','1')
           this.router.navigate(['/dashboard'])
         }
-        if (this.validator == -1) {
-          this.toastr.info('Invalid User', 'Error')
+        if (res.resultvalue == 0) {
+          console.log('resultvalue', res.resultvalue);
+          this.toastr.error('Invalid User', 'Error')
         }
       })
     }
