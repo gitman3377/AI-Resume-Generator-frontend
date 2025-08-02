@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -14,11 +15,12 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   userid: number = 0;
-  validator: number = 1;
+  validator: number = 0;
   constructor(
     private authservice: AuthService,
     private toastr: ToastrService,
-    public router: Router
+    public router: Router,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -30,6 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
+    this.validator = 1;
     if (this.email == "" || this.email == undefined) {
       this.toastr.error('Email is Required!', 'Error')
       this.validator = 0;
@@ -47,7 +50,7 @@ export class LoginComponent implements OnInit {
       this.authservice.validateLogin(params).subscribe((res: any) => {
         if (res.resultvalue == 1) {
           this.toastr.success('Login Successfull', 'Success')
-          localStorage.setItem('currentUser','1')
+          localStorage.setItem('currentUser', '1')
           this.router.navigate(['/dashboard'])
         }
         if (res.resultvalue == 0) {
@@ -59,6 +62,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSignup() {
+
+    this.validator = 1;
+
     if (this.name == "" || this.name == undefined) {
       this.toastr.error('Username is Required!', 'Error')
       this.validator = 0;

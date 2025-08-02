@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ResumeBuildComponent } from './resume-build/resume-build.component';
 import { RouterModule } from '@angular/router';
+import { BuildComponent } from './component/build/build.component';
 
 export const routes = [
   {
     path: '',
-    component: ResumeBuildComponent,
+    component: BuildComponent,
     data: {
       title: 'ResumeBuilder'
     }
@@ -15,11 +15,11 @@ export const routes = [
 
 @NgModule({
   declarations: [
-    ResumeBuildComponent
+    BuildComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
-  ]
+  ],
 })
 export class BuildModule { }

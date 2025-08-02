@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResumeBuildComponent } from './resume-build.component';
+import { MyresumeComponent } from './myresume.component';
 
-describe('ResumeBuildComponent', () => {
-  let component: ResumeBuildComponent;
-  let fixture: ComponentFixture<ResumeBuildComponent>;
+describe('MyresumeComponent', () => {
+  let component: MyresumeComponent;
+  let fixture: ComponentFixture<MyresumeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ResumeBuildComponent]
+      declarations: [MyresumeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ResumeBuildComponent);
+    fixture = TestBed.createComponent(MyresumeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

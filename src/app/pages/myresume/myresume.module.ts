@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MyResumeComponent } from './my-resume/my-resume.component';
 import { RouterModule } from '@angular/router';
+import { MyresumeComponent } from './component/myresume/myresume.component';
 
 export const routes = [
   {
     path: '',
-    component: MyResumeComponent,
+    component: MyresumeComponent,
     data: {
       title: 'MyResume'
     }
@@ -15,7 +15,7 @@ export const routes = [
 
 @NgModule({
   declarations: [
-    MyResumeComponent
+    MyresumeComponent
   ],
   imports: [
     CommonModule,

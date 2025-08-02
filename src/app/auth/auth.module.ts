@@ -4,12 +4,14 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'
 import { AuthService } from './auth.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+
 
 const routes: any = [
   {
     path: 'login',
     component: LoginComponent,
-    pathMatch: 'full',
         data: {
             title: 'Login',
         }
@@ -28,10 +30,10 @@ const routes: any = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule
+    FormsModule,
   ],
   providers:[
-    AuthService
+    AuthService,
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

@@ -1,26 +1,30 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DashboardComponent } from './components/dashboard.component';
 import { RouterModule } from '@angular/router';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
 
 export const routes = [
   {
     path: '',
     component: DashboardComponent,
     data: {
-      title: 'dashboard',
-      urls: [{title: 'Home'},{title: 'Dashboard'}]
+      title: 'Dashboard',
+      urls: [{ title: 'Home' }, { title: 'Dashboard' }]
     }
   }
 ]
 
 @NgModule({
+  exports: [
+  ],
   declarations: [
     DashboardComponent
   ],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild(routes),
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

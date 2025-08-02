@@ -112,6 +112,13 @@
     }
 
     .bottom {
-        margin-top: 145% !important;
+        margin-top: 140% !important;
+    }
+}
+
+@media(min-width: 1440px) {
+
+    .bottom {
+        margin-top: 120% !important;
     }
 }
