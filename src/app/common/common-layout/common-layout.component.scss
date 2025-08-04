@@ -11,7 +11,7 @@
 
           .side-bar {
               width: 15%;
-              background: #b1f860;
+              background: #76ff03;
               color: #fff;
               padding: 10px;
               position: relative;
@@ -23,8 +23,12 @@
       }
   }
 
-  @media(max-width: 430px){
-    .side-bar{
-        display: none;
-    }
+  @media(max-width: 430px) {
+      .side-bar {
+          display: none;
+      }
+
+      .page-wrapper {
+          width: 100% !important;
+      }
   }
