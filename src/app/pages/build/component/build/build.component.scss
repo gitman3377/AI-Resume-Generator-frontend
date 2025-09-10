@@ -1,0 +1,166 @@
+$form-primary: #2563eb; // blue
+$form-secondary: #f3f4f6; // light gray
+$form-success: #16a34a; // green
+
+.form-container {
+    max-width: 750px;
+    height: 575px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+    .form-title {
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
+    }
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+
+    .progress-step {
+        text-align: center;
+        width: 100px;
+
+        .circle {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: #d1d5db;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .label {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+        }
+
+        &.active {
+            .circle {
+                background: $form-primary;
+                color: white;
+            }
+
+            .label {
+                color: $form-primary;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .progress-connector {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 50px;
+
+        .small_circle {
+            width: 4px;
+            height: 4px;
+            margin: 0 2px;
+            border-radius: 50%;
+            background: #d1d5db;
+            transition: background 0.3s;
+
+            &.active {
+                background: $form-primary; // now works correctly
+            }
+        }
+    }
+
+}
+
+
+.form-step {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    height: 250px;
+    overflow-y: auto;
+
+    input,
+    textarea {
+        padding: 0.5rem;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: border-color 0.2s;
+
+        &:focus {
+            border-color: $form-primary;
+            outline: none;
+        }
+    }
+
+    textarea {
+        min-height: 80px;
+        resize: vertical;
+    }
+
+    &.review {
+        .review-box {
+            background: $form-secondary;
+            padding: 1rem;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+    }
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+
+    .btn {
+        padding: 0.7rem 1.5rem;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.2s;
+
+        &.back {
+            background: #d1d5db;
+            color: #374151;
+
+            &:hover {
+                background: #9ca3af;
+            }
+        }
+
+        &.next {
+            background: $form-primary;
+            color: white;
+
+            &:hover {
+                background: darken($form-primary, 10%);
+            }
+        }
+
+        &.submit {
+            background: $form-success;
+            color: white;
+
+            &:hover {
+                background: darken($form-success, 10%);
+            }
+        }
+    }
+}

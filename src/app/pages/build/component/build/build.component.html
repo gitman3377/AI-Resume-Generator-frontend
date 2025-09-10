@@ -1,1 +1,88 @@
-<p>build works!</p>
+<div class="form-container">
+  <h2 class="form-title">Career Profile Form</h2>
+
+  <div class="progress-bar">
+    <ng-container *ngFor="let s of slides; let i = index">
+      <div class="progress-step" [class.active]="step >= s.length">
+        <div class="circle">{{ i+1 }}</div>
+        <p class="label">
+          {{ s }}
+        </p>
+      </div>
+
+      <div *ngIf="i < s.length - 1" class="progress-connector">
+        <div *ngFor="let c of [1,2,3]" class="small_circle" [class.active]="step > s.length">
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+    <div *ngIf="step === 1" formGroupName="General" class="form-step">
+      <input formControlName="firstName" placeholder="First Name" />
+      <input formControlName="lastName" placeholder="Last Name" />
+      <input formControlName="email" placeholder="Email" type="email" />
+      <input formControlName="phonenumber" placeholder="Phone Number" />
+      <textarea formControlName="address" placeholder="Address"></textarea>
+    </div>
+
+    <div *ngIf="step === 2" formGroupName="Academics" class="form-step">
+      <input formControlName="qualification_level" placeholder="Qualification Level" />
+      <input formControlName="course" placeholder="Course" />
+      <input formControlName="total_marks" placeholder="Total Marks" />
+      <input formControlName="marks_obtained" placeholder="Marks Obtained" />
+      <input formControlName="evaluation_metric" placeholder="Evaluation Metric" />
+    </div>
+
+    <div *ngIf="step === 3" formGroupName="Certifications" class="form-step">
+      <input formControlName="certification_name" placeholder="Name" />
+      <input formControlName="issuer" placeholder="Issuer" />
+      <input formControlName="date_issued" placeholder="Date Issued" />
+      <input formControlName="certificate_path" placeholder="Certificate Link" />
+    </div>
+
+     <div *ngIf="step === 4" formGroupName="Interships" class="form-step">
+      <input formControlName="internship_name" placeholder="Name" />
+      <input formControlName="company_name" placeholder="Company" />
+      <input formControlName="role" placeholder="Role" />
+      <input formControlName="duration" placeholder="Duration" />
+      <input formControlName="from_date" placeholder="From Date" />
+      <input formControlName="to_date" placeholder="To Date" />
+      <input formControlName="stipend" placeholder="Stipend" />
+      <input formControlName="mentor" placeholder="Mentor" />
+      <input formControlName="internship_type" placeholder="Mode of Intership" />
+      <input formControlName="intern_certificate_path" placeholder="Certificate Link" />
+    </div>
+
+     <div *ngIf="step === 5" formGroupName="Languages" class="form-step">
+      <input formControlName="language" placeholder="Language" />
+      <input formControlName="proficiency" placeholder="Proficiency" />
+    </div>
+
+     <div *ngIf="step === 6" formGroupName="Skillset" class="form-step">
+      <input formControlName="skills" placeholder="Skill" />
+      <input formControlName="toolchain" placeholder="Tools" />
+      <input formControlName="domain" placeholder="Domain" />
+      <input formControlName="softskill" placeholder="Softskill" />
+    </div>
+
+    <div *ngIf="step === 7" class="form-step review">
+      <h3>Review Your Details</h3>
+      <div class="review-box">
+        <p><b>Name:</b> {{userForm.value.personal.firstName}} {{userForm.value.personal.lastName}}</p>
+        <p><b>Email:</b> {{userForm.value.personal.email}}</p>
+        <p><b>Phone:</b> {{userForm.value.contact.phone}}</p>
+        <p><b>Address:</b> {{userForm.value.contact.address}}</p>
+        <p><b>Username:</b> {{userForm.value.account.username}}</p>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="button" (click)="prevStep()" *ngIf="step > 1" class="btn back">Back</button>
+      <button type="button" (click)="nextStep()" *ngIf="step < 4" class="btn next">Next</button>
+      <button type="submit" *ngIf="step === 4" class="btn submit">Submit</button>
+    </div>
+  </form>
+</div>

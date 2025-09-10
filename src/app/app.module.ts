@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonLayoutComponent } from './common/common-layout/common-layout.component';
 import { SharedModule } from './shared/shared.module';
 import { MessageService} from 'primeng/api'
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { MessageService} from 'primeng/api'
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     NgbModule,
     SharedModule,
