@@ -3,15 +3,15 @@
 
   <div class="progress-bar">
     <ng-container *ngFor="let s of slides; let i = index">
-      <div class="progress-step" [class.active]="step >= s.length">
+      <div class="progress-step" [class.active]="step > i">
         <div class="circle">{{ i+1 }}</div>
         <p class="label">
           {{ s }}
         </p>
       </div>
 
-      <div *ngIf="i < s.length - 1" class="progress-connector">
-        <div *ngFor="let c of [1,2,3]" class="small_circle" [class.active]="step > s.length">
+      <div *ngIf="i < slides.length - 1" class="progress-connector">
+        <div *ngFor="let c of [1,2,3]" class="small_circle" [class.active]="step > i + 1">
         </div>
       </div>
     </ng-container>
@@ -22,67 +22,251 @@
 
     <div *ngIf="step === 1" formGroupName="General" class="form-step">
       <input formControlName="firstName" placeholder="First Name" />
+      <div class="error" *ngIf="userForm.get('General.firstName')?.invalid &&
+                  userForm.get('General.firstName')?.touched">
+        First name is required
+      </div>
       <input formControlName="lastName" placeholder="Last Name" />
+      <div class="error" *ngIf="userForm.get('General.lastName')?.invalid &&
+                  userForm.get('General.lastName')?.touched">
+        Last name is required
+      </div>
       <input formControlName="email" placeholder="Email" type="email" />
+      <div class="error" *ngIf="userForm.get('General.email')?.invalid &&
+                  userForm.get('General.email')?.touched">
+        Valid email is required
+      </div>
       <input formControlName="phonenumber" placeholder="Phone Number" />
+      <div class="error" *ngIf="userForm.get('General.phonenumber')?.invalid &&
+                  userForm.get('General.phonenumber')?.touched">
+        Phone number is required
+      </div>
       <textarea formControlName="address" placeholder="Address"></textarea>
+      <div class="error" *ngIf="userForm.get('General.address')?.invalid &&
+                  userForm.get('General.address')?.touched">
+        Address is required
+      </div>
     </div>
 
-    <div *ngIf="step === 2" formGroupName="Academics" class="form-step">
-      <input formControlName="qualification_level" placeholder="Qualification Level" />
-      <input formControlName="course" placeholder="Course" />
-      <input formControlName="total_marks" placeholder="Total Marks" />
-      <input formControlName="marks_obtained" placeholder="Marks Obtained" />
-      <input formControlName="evaluation_metric" placeholder="Evaluation Metric" />
+    <div *ngIf="step === 2" formGroupName="Academics">
+      <div formArrayName="records" class="multi-record">
+        <div *ngFor="let record of academicRecords.controls; let i = index; trackBy: trackByIndex" [formGroupName]="i"
+          class="academic-card">
+          <div class="card-header">
+            <span>Academic Record {{ i + 1 }}</span>
+            <button type="button" class="remove-btn" (click)="removeAcademic(i)" *ngIf="academicRecords.length > 1">
+              ✕
+            </button>
+          </div>
+          <select formControlName="qualification_level">
+            <option value="">Select Qualification</option>
+            <option *ngFor="let q of qualificationLevels" [value]="q">{{ q }}</option>
+          </select>
+          <div class="error" *ngIf="record.get('qualification_level')?.invalid &&
+            record.get('qualification_level')?.touched">
+            Qualification level is required
+          </div>
+          <select formControlName="course">
+            <option value="">Select Course</option>
+            <option *ngFor="let c of courses" [value]="c">{{ c }}</option>
+          </select>
+          <input formControlName="total_marks" placeholder="Total Marks/Grades" />
+          <div class="error" *ngIf="record.get('total_marks')?.invalid &&
+                  record.get('total_marks')?.touched">
+            total marks/grades is required
+          </div>
+          <input formControlName="marks_obtained" placeholder="Marks/Grades Obtained" />
+          <div class="error" *ngIf="record.get('marks_obtained')?.invalid &&
+                  record.get('marks_obtained')?.touched">
+            marks/grades obtained is required
+          </div>
+          <select formControlName="evaluation_metric">
+            <option value="">Select Evaluation Metric</option>
+            <option *ngFor="let e of evaluationMetrics" [value]="e">{{ e }}</option>
+          </select>
+          <div class="error" *ngIf="record.get('evaluation_metric')?.invalid &&
+                  record.get('evaluation_metric')?.touched">
+            evaluation metric is required
+          </div>
+        </div>
+        <button type="button" (click)="addAcaddemic()">+ Add Academic</button>
+      </div>
     </div>
 
-    <div *ngIf="step === 3" formGroupName="Certifications" class="form-step">
-      <input formControlName="certification_name" placeholder="Name" />
-      <input formControlName="issuer" placeholder="Issuer" />
-      <input formControlName="date_issued" placeholder="Date Issued" />
-      <input formControlName="certificate_path" placeholder="Certificate Link" />
+    <div *ngIf="step === 3" formGroupName="Certifications">
+      <div formArrayName="records" class="multi-record">
+        <div *ngFor="let record of certificationRecords.controls; let i = index; trackBy: trackByIndex"
+          [formGroupName]="i" class="academic-card">
+          <div class="card-header">
+            <span>Certification Record {{ i + 1 }}</span>
+            <button type="button" class="remove-btn" (click)="removeCertification(i)"
+              *ngIf="certificationRecords.length > 1">
+              ✕
+            </button>
+          </div>
+          <input formControlName="certification_name" placeholder="Name" />
+          <div class="error" *ngIf="record.get('certification_name')?.invalid &&
+            record.get('certification_name')?.touched">
+            Certification name is required
+          </div>
+          <input formControlName="issuer" placeholder="Issuer" />
+          <div class="error" *ngIf="record.get('issuer')?.invalid &&
+                  record.get('issuer')?.touched">
+            issuer is required
+          </div>
+          <input formControlName="date_issued" placeholder="Date Issued" />
+          <div class="error" *ngIf="record.get('date_issued')?.invalid &&
+                  record.get('date_issued')?.touched">
+            date issued is required
+          </div>
+          <input formControlName="certificate_path" placeholder="Certificate Link" />
+          <div class="error" *ngIf="record.get('certificate_path')?.invalid &&
+                  record.get('certificate_path')?.touched">
+            certificate link is required
+          </div>
+        </div>
+        <button type="button" (click)="addCertification()">+ Add Certification</button>
+      </div>
     </div>
 
-     <div *ngIf="step === 4" formGroupName="Interships" class="form-step">
-      <input formControlName="internship_name" placeholder="Name" />
-      <input formControlName="company_name" placeholder="Company" />
-      <input formControlName="role" placeholder="Role" />
-      <input formControlName="duration" placeholder="Duration" />
-      <input formControlName="from_date" placeholder="From Date" />
-      <input formControlName="to_date" placeholder="To Date" />
-      <input formControlName="stipend" placeholder="Stipend" />
-      <input formControlName="mentor" placeholder="Mentor" />
-      <input formControlName="internship_type" placeholder="Mode of Intership" />
-      <input formControlName="intern_certificate_path" placeholder="Certificate Link" />
+    <div *ngIf="step === 4" formGroupName="Internships" class="multi-record">
+      <div formArrayName="records" class="multi-record">
+        <div *ngFor="let record of internshipRecords.controls; let i = index; trackBy: trackByIndex" [formGroupName]="i"
+          class="academic-card">
+          <div class="card-header">
+            <span>Internship Record {{ i + 1 }}</span>
+            <button type="button" class="remove-btn" (click)="removeInternship(i)" *ngIf="internshipRecords.length > 1">
+              ✕
+            </button>
+          </div>
+          <input formControlName="internship_name" placeholder="Name" />
+          <div class="error" *ngIf="record.get('internship_name')?.invalid &&
+                  record.get('internship_name')?.touched">
+            internship name is required
+          </div>
+          <input formControlName="company_name" placeholder="Company" />
+          <div class="error" *ngIf="record.get('company_name')?.invalid &&
+                  record.get('company_name')?.touched">
+            company name is required
+          </div>
+          <input formControlName="role" placeholder="Role" />
+          <div class="error" *ngIf="record.get('role')?.invalid &&
+                  record.get('role')?.touched">
+            role is required
+          </div>
+          <input formControlName="duration" placeholder="Duration" />
+          <div class="error" *ngIf="record.get('duration')?.invalid &&
+                  record.get('duration')?.touched">
+            duration is required
+          </div>
+          <input formControlName="from_date" placeholder="From Date" />
+          <div class="error" *ngIf="record.get('from_date')?.invalid &&
+                  record.get('from_date')?.touched">
+            from date is required
+          </div>
+          <input formControlName="to_date" placeholder="To Date" />
+          <div class="error" *ngIf="record.get('to_date')?.invalid &&
+                  record.get('to_date')?.touched">
+            to date is required
+          </div>
+          <input formControlName="stipend" placeholder="Stipend" />
+          <input formControlName="mentor" placeholder="Mentor" />
+          <select formControlName="internship_type">
+            <option value="">Select Internship Type</option>
+            <option *ngFor="let t of internshipTypes" [value]="t">{{ t }}</option>
+          </select>
+          <div class="error" *ngIf="record.get('internship_type')?.invalid &&
+                  record.get('internship_type')?.touched">
+            mode of intership is required
+          </div>
+          <input formControlName="intern_certificate_path" placeholder="Certificate Link" />
+        </div>
+        <button type="button" (click)="addInternship()">+ Add Internship</button>
+      </div>
     </div>
 
-     <div *ngIf="step === 5" formGroupName="Languages" class="form-step">
-      <input formControlName="language" placeholder="Language" />
-      <input formControlName="proficiency" placeholder="Proficiency" />
+
+
+    <div *ngIf="step === 5" formGroupName="Languages">
+      <div formArrayName="records" class="multi-record">
+        <div *ngFor="let record of languageRecords.controls; let i = index; trackBy: trackByIndex" [formGroupName]="i"
+          class="academic-card">
+          <div class="card-header">
+            <span>Language Record {{ i + 1 }}</span>
+            <button type="button" class="remove-btn" (click)="removeLanguage(i)" *ngIf="languageRecords.length > 1">
+              ✕
+            </button>
+          </div>
+          <input formControlName="language" placeholder="Language" />
+          <select formControlName="proficiency">
+            <option value="">Select Proficiency</option>
+            <option *ngFor="let p of languageLevels" [value]="p">{{ p }}</option>
+          </select>
+        </div>
+        <button type="button" (click)="addLanguage()">+ Add Language</button>
+      </div>
     </div>
 
-     <div *ngIf="step === 6" formGroupName="Skillset" class="form-step">
-      <input formControlName="skills" placeholder="Skill" />
-      <input formControlName="toolchain" placeholder="Tools" />
-      <input formControlName="domain" placeholder="Domain" />
-      <input formControlName="softskill" placeholder="Softskill" />
+    <div *ngIf="step === 6" formGroupName="Skillset">
+      <div formArrayName="records" class="multi-record">
+        <div *ngFor="let record of skillsetRecords.controls; let i = index; trackBy: trackByIndex" [formGroupName]="i"
+          class="academic-card">
+          <div class="card-header">
+            <span>Skillset Record {{ i + 1 }}</span>
+            <button type="button" class="remove-btn" (click)="removeSkillset(i)" *ngIf="skillsetRecords.length > 1">
+              ✕
+            </button>
+          </div>
+          <input formControlName="skills" placeholder="Skill" />
+          <input formControlName="toolchain" placeholder="Tools" />
+          <input formControlName="domain" placeholder="Domain" />
+          <input formControlName="softskill" placeholder="Softskill" />
+        </div>
+        <button type="button" (click)="addSkillset()">+ Add Skillset</button>
+      </div>
     </div>
 
     <div *ngIf="step === 7" class="form-step review">
       <h3>Review Your Details</h3>
       <div class="review-box">
-        <p><b>Name:</b> {{userForm.value.personal.firstName}} {{userForm.value.personal.lastName}}</p>
-        <p><b>Email:</b> {{userForm.value.personal.email}}</p>
-        <p><b>Phone:</b> {{userForm.value.contact.phone}}</p>
-        <p><b>Address:</b> {{userForm.value.contact.address}}</p>
-        <p><b>Username:</b> {{userForm.value.account.username}}</p>
+        <h4>General Information</h4>
+        <p>Name: {{ userForm.value.General.firstName }} {{ userForm.value.General.lastName }}</p>
+        <p>Email: {{ userForm.value.General.email }}</p>
+        <p>Phone: {{ userForm.value.General.phonenumber }}</p>
+        <p>Address: {{ userForm.value.General.address }}</p>
+
+        <h4>Academics</h4>
+        <div *ngFor="let a of userForm.value.Academics.records">
+          <p>{{ a.qualification_level }} – {{ a.course }} – {{ a.marks_obtained }}/{{ a.total_marks }} ({{
+            a.evaluation_metric }})</p>
+        </div>
+
+        <h4>Certifications</h4>
+        <div *ngFor="let c of userForm.value.Certifications.records">
+          <p>{{ c.certification_name }} – {{ c.issuer }}</p>
+        </div>
+
+        <h4>Internships</h4>
+        <div *ngFor="let i of userForm.value.Internships.records">
+          <p>{{ i.internship_name }} – {{ i.company_name }} ({{ i.internship_type }})</p>
+        </div>
+
+        <h4>Languages</h4>
+        <div *ngFor="let l of userForm.value.Languages.records">
+          <p>{{ l.language }} – {{ l.proficiency }}</p>
+        </div>
+
+        <h4>Skillset</h4>
+        <div *ngFor="let s of userForm.value.Skillset.records">
+          <p>{{ s.skill }} – {{ s.domain }}</p>
+        </div>
       </div>
     </div>
 
     <div class="button-group">
       <button type="button" (click)="prevStep()" *ngIf="step > 1" class="btn back">Back</button>
-      <button type="button" (click)="nextStep()" *ngIf="step < 4" class="btn next">Next</button>
-      <button type="submit" *ngIf="step === 4" class="btn submit">Submit</button>
+      <button type="button" (click)="nextStep()" *ngIf="step < reviewSteps" class="btn next">Next</button>
+      <button type="submit" *ngIf="step === reviewSteps" class="btn submit">Submit</button>
     </div>
   </form>
 </div>

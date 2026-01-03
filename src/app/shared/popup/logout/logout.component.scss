@@ -1,44 +1,8 @@
-.logout-popup-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.35);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-
-  // Fade-in animation for backdrop
-  animation: fadeInBackdrop 0.3s ease-out;
-}
-
-.logout-popup {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  width: 300px;
-  text-align: center;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-
-  // Smooth scale-in
-  transform: scale(0.9);
-  opacity: 0;
-  animation: popupEnter 0.3s ease-out forwards;
-
-  h3 {
-    margin: 0;
-    font-size: 1.2rem;
-    color: #333;
+  .logout-popup-backdrop{
+    padding: 5%;
   }
 
-  p {
-    margin: 1rem 0;
-    font-size: 0.95rem;
-    color: #555;
-  }
-
+  
   .popup-actions {
     display: flex;
     justify-content: space-between;
@@ -73,25 +37,3 @@
       }
     }
   }
-}
-
-/* Animations */
-@keyframes fadeInBackdrop {
-  from {
-    background: rgba(0, 0, 0, 0);
-  }
-  to {
-    background: rgba(0, 0, 0, 0.35);
-  }
-}
-
-@keyframes popupEnter {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
