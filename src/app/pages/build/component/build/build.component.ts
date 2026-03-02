@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BuildService } from '../../build.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-build',
@@ -13,7 +15,11 @@ export class BuildComponent {
   totalSteps = 0;
   reviewSteps = 0;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+      private fb: FormBuilder,
+      private buildService: BuildService,
+      public router: Router
+  ) {
     this.slides = ["General", "Academics", "Certifications", "Internships", "Languages", "Skillset"]
     this.totalSteps = this.slides.length;
     this.reviewSteps = this.totalSteps + 1;
@@ -256,9 +262,19 @@ export class BuildComponent {
   onSubmit() {
     // mark all controls touched to reveal any remaining validation messages
     this.markGroupTouched(this.userForm as any);
+    console.log('Form Data:', this.userForm.value);
     if (this.userForm.valid) {
-      console.log('Form Data:', this.userForm.value);
-      alert('Form Submitted Successfully!');
+      const payload = {
+        general: this.userForm.get('General')?.value,
+        academics: this.userForm.get('Academics')?.value.records,
+        certifications: this.userForm.get('Certifications')?.value.records,
+        internships: this.userForm.get('Internships')?.value.records,
+        languages: this.userForm.get('Languages')?.value.records,
+        skillset: this.userForm.get('Skillset')?.value.records,
+      }
+      this.buildService.addResumeData(payload).subscribe((res:any) =>{
+        console.log('Response from server:', res);
+      })
     } else {
       alert('Please fix validation errors before submitting.');
     }
