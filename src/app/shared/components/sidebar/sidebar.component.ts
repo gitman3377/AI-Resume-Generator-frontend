@@ -26,13 +26,26 @@ ngOnInit() {
   
 }
 
-logout(){
-  const modalRef = this.modalService.open(LogoutComponent,{windowClass: "my_class", backdrop: 'static'})
-      modalRef.result.then(result => {
-      if (result) {
-        //---//
-      }
-    })
+logout() {
+  const modalRef = this.modalService.open(
+    LogoutComponent,
+    {
+      windowClass: "my_class",
+      backdrop: 'static'
+    }
+  );
+
+  modalRef.result.then(result => {
+
+    if (result) {
+
+      localStorage.removeItem('currentUser');
+
+      this.router.navigate(['/auth']);
+
+    }
+
+  });
 }
 
 ngDoCheck(){

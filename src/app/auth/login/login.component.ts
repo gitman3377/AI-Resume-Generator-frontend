@@ -48,14 +48,25 @@ export class LoginComponent implements OnInit {
     }
     if (this.validator == 1) {
       this.authservice.validateLogin(params).subscribe((res: any) => {
-        if (res.resultvalue == 1) {
-          this.toastr.success('Login Successfull', 'Success')
-          localStorage.setItem('currentUser', '1')
-          this.router.navigate(['/dashboard'])
-        }
-        if (res.resultvalue == 0) {
+        if (res.resultvalue == 1 && res.userid > 0) {
+
+          this.toastr.success('Login Successful', 'Success');
+
+          localStorage.setItem(
+            'currentUser',
+            res.userid.toString()
+          );
+
+          this.router.navigate(['/dashboard']);
+
+        } else {
+
           console.log('resultvalue', res.resultvalue);
-          this.toastr.error('Invalid User', 'Error')
+
+          this.toastr.error(
+            'Invalid email or password',
+            'Error'
+          );
         }
       })
     }
@@ -92,7 +103,7 @@ export class LoginComponent implements OnInit {
           setTimeout(window.location.reload.bind(window.location), 250)
         }
         if (res[0].resultvalue == -1) {
-          this.toastr.info('Username/Password already taken!', 'Info')
+          this.toastr.info('Username/Password/Email already taken!', 'Info')
         }
       })
     }
