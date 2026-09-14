@@ -260,25 +260,88 @@ export class BuildComponent {
   }
 
   onSubmit() {
-    // mark all controls touched to reveal any remaining validation messages
-    this.markGroupTouched(this.userForm as any);
-    console.log('Form Data:', this.userForm.value);
-    if (this.userForm.valid) {
-      const payload = {
-        general: this.userForm.get('General')?.value,
-        academics: this.userForm.get('Academics')?.value.records,
-        certifications: this.userForm.get('Certifications')?.value.records,
-        internships: this.userForm.get('Internships')?.value.records,
-        languages: this.userForm.get('Languages')?.value.records,
-        skillset: this.userForm.get('Skillset')?.value.records,
-      }
-      this.buildService.addResumeData(payload).subscribe((res:any) =>{
-        console.log('Response from server:', res);
-      })
-    } else {
-      alert('Please fix validation errors before submitting.');
+  // Mark all controls touched to reveal any remaining validation messages
+  this.markGroupTouched(this.userForm as any);
+
+  if (this.userForm.valid) {
+
+    const userId = Number(localStorage.getItem('currentUser'));
+
+    if (!userId || userId <= 0) {
+      alert('Invalid user session. Please log in again.');
+      this.router.navigate(['/auth']);
+      return;
     }
+
+    const general = this.userForm.get('General')?.value;
+
+    const payload = {
+      userId: userId,
+
+      general: {
+        firstName: general.firstName,
+        lastName: general.lastName,
+        email: general.email,
+        phoneNumber: general.phonenumber,
+        address: general.address
+      },
+
+      academics: this.academicRecords.value.map((record: any) => ({
+        qualificationLevel: record.qualification_level,
+        course: record.course,
+        totalMarks: record.total_marks,
+        marksObtained: record.marks_obtained,
+        evaluationMetric: record.evaluation_metric
+      })),
+
+      certifications: this.certificationRecords.value.map((record: any) => ({
+        certificationName: record.certification_name,
+        issuer: record.issuer,
+        dateIssued: record.date_issued,
+        certificatePath: record.certificate_path
+      })),
+
+      internships: this.internshipRecords.value.map((record: any) => ({
+        internshipName: record.internship_name,
+        companyName: record.company_name,
+        role: record.role,
+        duration: record.duration,
+        fromDate: record.from_date,
+        toDate: record.to_date,
+        stipend: record.stipend,
+        mentor: record.mentor,
+        internshipType: record.internship_type,
+        certificatePath: record.intern_certificate_path
+      })),
+
+      languages: this.languageRecords.value.map((record: any) => ({
+        language: record.language,
+        proficiency: record.proficiency
+      })),
+
+      skillsets: this.skillsetRecords.value.map((record: any) => ({
+        skills: record.skills,
+        toolchain: record.toolchain,
+        domain: record.domain,
+        softSkill: record.softskill
+      }))
+    };
+
+    console.log('Resume Payload:', payload);
+
+    this.buildService.addResumeData(payload).subscribe({
+      next: (res: any) => {
+        console.log('Response from server:', res);
+      },
+      error: (err: any) => {
+        console.error('Resume submission error:', err);
+      }
+    });
+
+  } else {
+    alert('Please fix validation errors before submitting.');
   }
+}
 
   trackByIndex(index: number): number {
     return index;

@@ -114,7 +114,7 @@
                   record.get('issuer')?.touched">
             issuer is required
           </div>
-          <input formControlName="date_issued" placeholder="Date Issued" />
+          <input type="date" formControlName="date_issued" />
           <div class="error" *ngIf="record.get('date_issued')?.invalid &&
                   record.get('date_issued')?.touched">
             date issued is required
@@ -159,12 +159,12 @@
                   record.get('duration')?.touched">
             duration is required
           </div>
-          <input formControlName="from_date" placeholder="From Date" />
+          <input type="date" formControlName="from_date"/>
           <div class="error" *ngIf="record.get('from_date')?.invalid &&
                   record.get('from_date')?.touched">
             from date is required
           </div>
-          <input formControlName="to_date" placeholder="To Date" />
+          <input type="date" formControlName="to_date"/> 
           <div class="error" *ngIf="record.get('to_date')?.invalid &&
                   record.get('to_date')?.touched">
             to date is required
